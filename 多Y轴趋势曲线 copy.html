@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <!-- 引入刚刚下载的 ECharts 文件 -->
+    <!-- <script src="./echarts/dist/echarts.min.js"></script> -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/4.1.0/echarts.min.js" rel="external nofollow" ></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+    <div id="main" style="width: 100%; height:400px; background: black;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        // echarts.registerTransform(ecStat.transform.histogram);
+        var option = {
+            tooltip: {
+                trigger: "axis",
+                axisPointer: {
+                    lineStyle: {
+                        color: "#ddd",
+                    },
+                },
+                backgroundColor: "rgba(255,255,255,1)",
+                padding: [5, 10],
+                textStyle: {
+                    color: "#7588E4",
+                },
+                extraCssText: "box-shadow: 0 0 5px rgba(0,0,0,0.3)",
+            },
+            grid: {
+                left: "12%",
+                right: "1.5%",
+                bottom: "8%",
+            },
+            legend: {
+                right: 20,
+                orient: "horizontal",
+                data: ["排放限制(mg/Nm³)", "实际出口排放(mg/Nm³)", "总能耗(kW)", "负荷(MW)"],
+                itemGap: 20,
+                textStyle: {
+                    color: "#fff",
+                    fontSize: "14px",
+                    padding: [0, 0, 0, 10],
+                },
+                icon: "rect",
+                itemWidth: 53,
+                itemHeight: 2,
+            },
+            // x轴数据
+            xAxis: {
+                id: 'x0',
+                type: "category",
+                data: [
+                    "1:00",
+                    "2:00",
+                    "3:00",
+                    "4:00",
+                    "5:00",
+                    "6:00",
+                    "7:00",
+                    "8:00",
+                    "9:00",
+                    "10:00",
+                    "11:00",
+                    "12:00",
+                    "13:00",
+                    "14:00",
+                    "15:00",
+                    "16:00",
+                    "17:00",
+                    "18:00",
+                    "19:00",
+                    "20:00",
+                    "21:00",
+                    "22:00",
+                    "23:00",
+                    "24:00",
+                ],
+                boundaryGap: false,
+                splitLine: {
+                    show: true,
+                    interval: "auto",
+                    lineStyle: {
+                        color: ["rgba(255,255,255,.18)"],
+                    },
+                },
+                axisTick: {
+                    show: false,
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: "#609ee9",
+                    },
+                },
+                axisLabel: {
+                    margin: 10,
+                    textStyle: {
+                        fontSize: 14,
+                    },
+                },
+            },
+
+            // y轴数据，有几个定义几个即可  position: "left",控制y轴的位置  offset: 60,控制y轴的偏移量
+            yAxis: [
+                {
+                    name: 'mg/Nm³',
+                    nameRotate: 45,
+                    type: "value",
+                    position: "left",
+                    offset: 0,
+                    splitLine: {
+                        lineStyle: {
+                            color: ["rgba(255,255,255,.18)"],
+                        },
+                    },
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: "#F19D7E",
+                        },
+                    },
+                    axisLabel: {
+                        margin: 10,
+                        textStyle: {
+                            fontSize: 12,
+                            color: "#21CBEE",
+                        },
+                    },
+                },
+                {
+                    name: 'mg/Nm³',
+                    nameRotate: 45,
+                    type: "value",
+                    position: "left",
+                    offset: 50,
+                    splitLine: {
+                        lineStyle: {
+                            color: ["rgba(255,255,255,.18)"],
+                        },
+                    },
+                    axisTick: {
+                        show: true,
+                        inside: true,
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "#FFA480",
+                        },
+                    },
+                    axisLabel: {
+                        margin: 10,
+                        textStyle: {
+                            fontSize: 12,
+                            color: "#FFA480",
+                        },
+                    },
+                },
+                {
+                    name:'kW',
+                    nameRotate: 45,
+                    type: "value",
+                    position: "left",
+                    offset: 100,
+                    splitLine: {
+                        show: false,
+                    },
+                    axisTick: {
+                        show: true,
+                        inside: true,
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "#768AFF",
+                            width: 1,
+                            type: "solid",
+                        },
+                    },
+                    axisLabel: {
+                        margin: 10,
+                        textStyle: {
+                            fontSize: 12,
+                            color: "#768AFF",
+                        },
+                    },
+                },
+                {
+                    name:'MW',
+                    nameRotate: 45,
+                    type: "value",
+                    position: "left",
+                    offset: 150,
+                    splitLine: {
+                        show: false,
+                    },
+                    axisTick: {
+                        show: true,
+                        inside: true,
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "#F3FFD5",
+                            width: 1,
+                            type: "solid",
+                        },
+                    },
+                    axisLabel: {
+                        margin: 10,
+                        textStyle: {
+                            fontSize: 12,
+                            color: "#FFFFFF",
+                        },
+                    },
+                },
+            ],
+            // 有几个Y轴定义几个数据即可
+            series: [
+                {
+                    id: 'serie0',
+                    name: "排放限制(mg/Nm³)",
+                    type: "line",
+                    smooth: true,
+                    showSymbol: false,
+                    symbol: "circle",
+                    yAxisIndex: 0,
+                    symbolSize: 6,
+                    data: [
+                        "1200",
+                        "1400",
+                        "1008",
+                        "1411",
+                        "1026",
+                        "1288",
+                        "1300",
+                        "800",
+                        "1100",
+                        "1000",
+                        "1118",
+                        "1322",
+                        "1200",
+                        "1400",
+                        "1008",
+                        "1411",
+                        "1026",
+                        "1288",
+                        "1300",
+                        "800",
+                        "1100",
+                        "1000",
+                        "1118",
+                        "1322",
+                    ],
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(
+                                0,
+                                0,
+                                0,
+                                1,
+                                [
+                                    {
+                                        offset: 0,
+                                        color: "rgba(14,41,105,0.5)",
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: "rgba(255,255,255,0)",
+                                    },
+                                ],
+                                false
+                            ),
+                        },
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: "#21CBEE",
+                        },
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 2,
+                        },
+                    },
+                },
+                {
+                    id: 'vline',
+                    name: "实际出口排放(mg/Nm³)",
+                    type: "line",
+                    smooth: true,
+                    showSymbol: false,
+                    symbol: "circle",
+                    yAxisIndex: 1,
+                    symbolSize: 6,
+                    data: [
+                        "1200",
+                        "1400",
+                        "808",
+                        "811",
+                        "626",
+                        "488",
+                        "1600",
+                        "1100",
+                        "500",
+                        "300",
+                        "1998",
+                        "822",
+                        "1200",
+                        "1400",
+                        "1008",
+                        "1411",
+                        "1026",
+                        "1288",
+                        "1300",
+                        "800",
+                        "1100",
+                        "1000",
+                        "1118",
+                        "1322",
+                    ],
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(
+                                0,
+                                0,
+                                0,
+                                1,
+                                [
+                                    {
+                                        offset: 0,
+                                        color: "rgba(252,73,62,.2)",
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: "rgba(252,73,62,0)",
+                                    },
+                                ],
+                                false
+                            ),
+                        },
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: "#FFA480",
+                        },
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 2,
+                        },
+                    },
+                },
+                {
+                    name: "总能耗(kW)",
+                    type: "line",
+                    smooth: true,
+                    showSymbol: false,
+                    symbol: "circle",
+                    yAxisIndex: 2,
+                    symbolSize: 6,
+                    data: [
+                        "300",
+                        "400",
+                        "900",
+                        "811",
+                        "626",
+                        "488",
+                        "1600",
+                        "1100",
+                        "500",
+                        "300",
+                        "1998",
+                        "822",
+                        "1400",
+                        "808",
+                        "811",
+                        "626",
+                        "488",
+                        "1600",
+                        "1100",
+                        "500",
+                        "300",
+                        "1998",
+                        "822",
+                        "1200",
+                    ],
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(
+                                0,
+                                0,
+                                0,
+                                1,
+                                [
+                                    {
+                                        offset: 0,
+                                        color: "rgba(118,138,255,.2)",
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: "rgba(118,138,255,0)",
+                                    },
+                                ],
+                                false
+                            ),
+                        },
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: "#768AFF",
+                        },
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 2,
+                        },
+                    },
+                },
+                {
+                    name: "负荷(MW)",
+                    type: "line",
+                    smooth: true,
+                    showSymbol: false,
+                    symbol: "circle",
+                    yAxisIndex: 3,
+                    symbolSize: 6,
+                    data: [
+                        "500",
+                        "100",
+                        "900",
+                        "811",
+                        "500",
+                        "991",
+                        "600",
+                        "200",
+                        "100",
+                        "300",
+                        "500",
+                        "822",
+                        "500",
+                        "100",
+                        "900",
+                        "811",
+                        "500",
+                        "991",
+                        "811",
+                        "626",
+                        "488",
+                        "1600",
+                        "1100",
+                        "500",
+                    ],
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(
+                                0,
+                                0,
+                                0,
+                                1,
+                                [
+                                    {
+                                        offset: 0,
+                                        color: "rgba(243,255,213,.2)",
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: "rgba(243,255,213,0)",
+                                    },
+                                ],
+                                false
+                            ),
+                        },
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: "#F3FFD5",
+                        },
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 2,
+                        },
+                    },
+                },
+            ],
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+        // ================================== Oparetion ====================================
+
+        function getMarkAxis() {
+            var result = new Object();
+            var option = myChart.getOption();
+            $.each(option.series, function(i, series) {
+                if (series.id == 'vline') {
+                    var markLine = series.markLine;
+                    result['L1'] = markLine.data[0].xAxis;
+                    result['L2'] = markLine.data[1].xAxis;
+                    return false;
+                }
+            });
+            return result;
+        }
+
+        function getVlineOpt(x1, x2, select) {
+            if (x1 == null || x1 == undefined) {
+                x1 = getMarkAxis()['L1'];
+            }
+            if (x2 == null || x2 == undefined) {
+                x2 = getMarkAxis()['L2'];
+            }
+            var color1 = '#FFBE00';
+            var color2 = '#FFBE00';
+            if (select == 'L1') {
+                color1 = '#111111';
+            }
+            if (select == 'L2') {
+                color2 = '#111111';
+            }
+
+            var option = {
+                series: [{
+                    id: 'vline',
+                    markLine: {
+                        symbol: 'none',
+                        silent: true,
+                        label: {
+                            show: true,
+                        },
+                        data: [{
+                            xAxis: x1,
+                            name: 'L1',
+                            lineStyle: {
+                                normal: {
+                                    type: "dashed",
+                                    width: 1,
+                                    color: color1
+                                }
+                            }
+                        }, {
+                            xAxis: x2,
+                            name: 'L2',
+                            lineStyle: {
+                                normal: {
+                                    type: "dashed",
+                                    width: 1,
+                                    color: color2
+                                }
+                            }
+                        }]
+                    },
+                    markPoint: {
+                        symbol: 'pin',
+                        // 标记的数据，可以是最大值最小值也可以是自定义的坐标
+                        data: []
+                    },
+                }]
+            };
+            return option;
+        }
+        // 绘制垂直markLine
+        myChart.setOption(getVlineOpt(0, 2));
+        
+        //绘制L值的graphic line
+        var myHeight = myChart.getHeight() - 50;
+        var myWidth = myChart.getWidth() - 50;
+        
+        myChart.setOption({
+            graphic: {
+                elements: [
+                    { 
+                        type: 'rect',
+                        id: 'rect1',
+                        name: 'rect1',
+                        bottom: -myHeight,
+                        z: 10,
+                        invisible: true,
+                        shape: {
+                            width: 0,
+                            height: myHeight * 2
+                        },
+                        style: {
+                            fill: 'rgba(128,128,128,1)',
+                            stroke: 'rgba(128,128,128,1)',
+                            lineWidth: 6
+                        },
+                        // 转换坐标系上的点到像素坐标值
+                        position: [myChart.convertToPixel({ xAxisId: 'x0' }, getMarkAxis()['L1']), 0],
+                        bouding: 'all',
+                        cursor: 'move',
+                        draggable: true,
+                        ondragstart: onLineDragStart,
+                        ondragend: onLineDragEnd  
+                    }, {
+                        type: 'rect',
+                        id: 'rect2',
+                        name: 'rect2',
+                        bottom: -myHeight,
+                        z: 9,
+                        invisible: true,
+                        shape: {
+                            width: 0,
+                            height: myHeight * 2
+                        },
+                        style: {
+                            fill: 'rgba(128,128,128,1)',
+                            stroke: 'rgba(128,128,128,1)',
+                            lineWidth: 6
+                        },
+                        //转换坐标系上的点到像素坐标值
+                        position: [myChart.convertToPixel({ xAxisId: 'x0' }, getMarkAxis()['L2']), 0],
+                        bouding: 'all',
+                        cursor: 'move',
+                        draggable: true,
+                        ondragstart: onLineDragStart,
+                        ondragend: onLineDragEnd
+                    }, {
+                        type: 'rect',
+                        id: 'rectArea',
+                        name: 'rectArea',
+                        bottom: -myHeight,
+                        z: 8,
+                        invisible: true,
+                        shape: {
+                            width: Math.abs(myChart.convertToPixel({ xAxisId: 'x0' }, getMarkAxis()['L2']) - myChart.convertToPixel({ xAxisId: 'x0' }, getMarkAxis()['L1'])) - 10,
+                            height: myHeight * 2
+                        },
+                        style: {
+                            fill: 'rgba(183,81,5,0.1)',
+                            stroke: 'rgba(128,128,128,0.2)'
+                        },
+                        //转换坐标系上的点到像素坐标值
+                        position: [myChart.convertToPixel({ xAxisId: 'x0' }, getMarkAxis()['L1'] < getMarkAxis()['L2'] ? getMarkAxis()['L1'] : getMarkAxis()['L2']) + 5, 0],
+                        bouding: 'all',
+                        cursor: 'move',
+                        draggable: true,
+                        onmouseover: onAreaMouseOver,
+                        onmouseout: onAreaMouseOut,
+                        ondragend: onAreaDragEnd,
+                    }, {
+                        type: 'rect',
+                        id: 'rectAll',
+                        name: 'rectAll',
+                        bottom: 0,
+                        z: 7,
+                        invisible: true,
+                        shape: {
+                            width: myWidth,
+                            height: myHeight
+                        },
+                        style: {
+                            fill: 'rgba(183,81,5,0.8)',
+                            stroke: 'rgba(128,128,128,0.2)'
+                        },
+                        //转换坐标系上的点到像素坐标值
+                        position: [0, 0],
+                        bouding: 'all',
+                        cursor: 'default',
+                        draggable: false
+                    }
+                ]
+            }
+        });
+
+        //拖拽开始markline变色
+        function onLineDragStart() {
+            var graphicId = this.__ecGraphicId;
+            if (graphicId == 'rect1') {
+                myChart.setOption(getVlineOpt(null, null, 'L1'));
+            } else if (graphicId == 'rect2') {
+                myChart.setOption(getVlineOpt(null, null, 'L2'));
+            }
+        }
+        
+        //垂直线重新定位，拖拽结束markLine和graphic确定位置
+        function onLineDragEnd() {
+            //console.log(this.position);
+            try {
+                //转换像素坐标值到逻辑坐标系上的点，是convertToPixel的逆运算
+                var x = getXAxis(this.position[0]);
+
+                //markLine重新定位
+                var vline_opt = {};
+                var graphicId = this.__ecGraphicId;
+                if (graphicId == 'rect1') {
+                    vline_opt = getVlineOpt(x, null);
+                } else if (graphicId == 'rect2') {
+                    vline_opt = getVlineOpt(null, x);
+                }
+                myChart.setOption(vline_opt);
+
+                //graphic重新定位
+                var graph_opt = getGraphicOpt();
+                myChart.setOption(graph_opt);
+
+                //当前页所有echarts修改垂直线
+                //var opt = $.extend(true, vline_opt, graph_opt);
+                //changeCharts(id, opt);
+            
+            } catch (e) {
+                console.log('垂直线移动失败。');
+                console.log(e);
+            }
+        }
+
+        function getXAxis(Xpx) {
+            var seriesData = getSeriesData(myChart, 'serie0');
+            var x = myChart.convertFromPixel({ xAxisId: 'x0' }, Xpx);
+            if (x <= 0) {
+                x = 0;
+            } else if (x >= seriesData.length) {
+                x = seriesData.length - 1;
+            }
+            return x;
+        }
+        
+        function getSeriesData(myChart, serieId) {
+            var data = [];
+            try {
+                var series = myChart.getOption().series;
+                $.each(series, function(i, serie) {
+                    if (serie.id == serieId) {
+                        data = serie.data;
+                        return false;
+                    }
+                });
+            } catch (e) {
+                console.log("获取数据失败。");
+                console.log(e);
+            }
+            return data;
+        }
+        
+        //鼠标移入移出显示隐藏Area图形
+        var area_opt = {
+            graphic: {
+                elements: [
+                    {
+                        id: 'rectArea',
+                        $action: 'merge',	//如果已有元素，则新的配置项和已有的设定进行 merge。如果没有则新建
+                        invisible: true		//节点是否可见。
+                    }]
+            }
+        };
+
+        function onAreaMouseOver() {
+            area_opt.graphic.elements[0].invisible = false;
+            myChart.setOption(area_opt);
+        }
+
+        function onAreaMouseOut() {
+            area_opt.graphic.elements[0].invisible = true;
+            myChart.setOption(area_opt);
+        }
+        
+        function onAreaDragEnd() {
+            try {
+                var x_start = getXAxis(this.position[0] - 5);
+                var x_end = getXAxis(this.position[0] + this.shape.width + 5);
+
+                //markLine重新定位
+                var vline_opt = {};
+                var result = getMarkAxis();
+                if (result['L1'] < result['L2']) {
+                    vline_opt = getVlineOpt(x_start, x_end);
+                } else {
+                    vline_opt = getVlineOpt(x_end, x_start);
+                }
+                myChart.setOption(vline_opt);
+
+                //graphic重新定位
+                var graph_opt = getGraphicOpt();
+                myChart.setOption(graph_opt);
+
+                //当前页所有echarts修改垂直线
+                var opt = $.extend(true, vline_opt, graph_opt); //是否进行深度拷贝,合并vline_opt和graph_opt
+                changeCharts(id, opt);
+                //getX(id, x_start, x_end);
+            } catch (e) {
+                console.log('垂直线移动失败。');
+                console.log(e);
+            }
+        }
+            //graphic重新定位
+        function getGraphicOpt() {
+            var result = getMarkAxis();
+            var option = {
+                graphic: {
+                    elements: [
+                        {
+                            id: 'rect1',
+                            $action: 'merge',
+                            position: [myChart.convertToPixel({ xAxisId: 'x0' }, result['L1']), 0]
+                        },
+                        {
+                            id: 'rect2',
+                            $action: 'merge',
+                            position: [myChart.convertToPixel({ xAxisId: 'x0' }, result['L2']), 0]
+                        }, {
+                            id: 'rectArea',
+                            $action: 'merge',
+                            shape: {
+                                width: Math.abs(myChart.convertToPixel({ xAxisId: 'x0' }, result['L2']) - myChart.convertToPixel({ xAxisId: 'x0' }, result['L1'])) - 10,
+                            },
+                            position: [myChart.convertToPixel({ xAxisId: 'x0' }, result['L1'] < result['L2'] ? result['L1'] : result['L2']) + 5, 0],
+                        }]
+                }
+            };
+            return option;
+        }
+        
+        function changeCharts(id, option) {
+            try {
+                var charts = $('#' + id).parents('div[role=tabpanel]').find('.mychart');
+                $.each(charts, function(i, chart) {
+                    if (chart.id == id) return true;
+                    var myChart = echarts.getInstanceByDom(chart);
+                    myChart.setOption(option);
+                });
+            } catch (e) {
+                console.log("charts修改失败。");
+                console.log(e);
+            }
+        }
+    </script>
+
+    </html>

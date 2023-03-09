@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <!-- 引入刚刚下载的 ECharts 文件 -->
+    <script src="./echarts/dist/echarts.min.js"></script>
+</head>
+
+<body>
+    <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+    <div id="main" style="width: 100%; height:400px; background: black;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        var option = {
+            tooltip: {
+                trigger: "axis",
+                axisPointer: {
+                    lineStyle: {
+                        color: "#ddd",
+                    },
+                },
+                backgroundColor: "rgba(255,255,255,1)",
+                padding: [5, 10],
+                textStyle: {
+                    color: "#7588E4",
+                },
+                extraCssText: "box-shadow: 0 0 5px rgba(0,0,0,0.3)",
+            },
+            grid: {
+                left: "12%",
+                right: "1.5%",
+                bottom: "8%",
+            },
+            legend: {
+                right: 20,
+                orient: "horizontal",
+                data: ["排放限制(mg/Nm³)", "实际出口排放(mg/Nm³)", "总能耗(kW)", "负荷(MW)"],
+                itemGap: 20,
+                textStyle: {
+                    color: "#fff",
+                    fontSize: "14px",
+                    padding: [0, 0, 0, 10],
+                },
+                icon: "rect",
+                itemWidth: 53,
+                itemHeight: 2,
+            },
+            // x轴数据
+            xAxis: {
+                type: "category",
+                data: [
+                    "1:00",
+                    "2:00",
+                    "3:00",
+                    "4:00",
+                    "5:00",
+                    "6:00",
+                    "7:00",
+                    "8:00",
+                    "9:00",
+                    "10:00",
+                    "11:00",
+                    "12:00",
+                    "13:00",
+                    "14:00",
+                    "15:00",
+                    "16:00",
+                    "17:00",
+                    "18:00",
+                    "19:00",
+                    "20:00",
+                    "21:00",
+                    "22:00",
+                    "23:00",
+                    "24:00",
+                ],
+                boundaryGap: false,
+                splitLine: {
+                    show: true,
+                    interval: "auto",
+                    lineStyle: {
+                        color: ["rgba(255,255,255,.18)"],
+                    },
+                },
+                axisTick: {
+                    show: false,
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: "#609ee9",
+                    },
+                },
+                axisLabel: {
+                    margin: 10,
+                    textStyle: {
+                        fontSize: 14,
+                    },
+                },
+            },
+
+            // y轴数据，有几个定义几个即可  position: "left",控制y轴的位置  offset: 60,控制y轴的偏移量
+            yAxis: [
+                {
+                    name: 'mg/Nm³',
+                    nameRotate: 45,
+                    type: "value",
+                    position: "left",
+                    offset: 0,
+                    splitLine: {
+                        lineStyle: {
+                            color: ["rgba(255,255,255,.18)"],
+                        },
+                    },
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: "#F19D7E",
+                        },
+                    },
+                    axisLabel: {
+                        margin: 10,
+                        textStyle: {
+                            fontSize: 12,
+                            color: "#21CBEE",
+                        },
+                    },
+                },
+                {
+                    name: 'mg/Nm³',
+                    nameRotate: 45,
+                    type: "value",
+                    position: "left",
+                    offset: 50,
+                    splitLine: {
+                        lineStyle: {
+                            color: ["rgba(255,255,255,.18)"],
+                        },
+                    },
+                    axisTick: {
+                        show: true,
+                        inside: true,
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "#FFA480",
+                        },
+                    },
+                    axisLabel: {
+                        margin: 10,
+                        textStyle: {
+                            fontSize: 12,
+                            color: "#FFA480",
+                        },
+                    },
+                },
+                {
+                    name:'kW',
+                    nameRotate: 45,
+                    type: "value",
+                    position: "left",
+                    offset: 100,
+                    splitLine: {
+                        show: false,
+                    },
+                    axisTick: {
+                        show: true,
+                        inside: true,
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "#768AFF",
+                            width: 1,
+                            type: "solid",
+                        },
+                    },
+                    axisLabel: {
+                        margin: 10,
+                        textStyle: {
+                            fontSize: 12,
+                            color: "#768AFF",
+                        },
+                    },
+                },
+                {
+                    name:'MW',
+                    nameRotate: 45,
+                    type: "value",
+                    position: "left",
+                    offset: 150,
+                    splitLine: {
+                        show: false,
+                    },
+                    axisTick: {
+                        show: true,
+                        inside: true,
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "#F3FFD5",
+                            width: 1,
+                            type: "solid",
+                        },
+                    },
+                    axisLabel: {
+                        margin: 10,
+                        textStyle: {
+                            fontSize: 12,
+                            color: "#FFFFFF",
+                        },
+                    },
+                },
+            ],
+            // 有几个Y轴定义几个数据即可
+            series: [
+                {
+                    name: "排放限制(mg/Nm³)",
+                    type: "line",
+                    smooth: true,
+                    showSymbol: false,
+                    symbol: "circle",
+                    yAxisIndex: 0,
+                    symbolSize: 6,
+                    markLine: {
+                        lineStyle: {
+                            width: 2,
+                            color: '#FFF',
+                        },
+                        // label: {
+                        //     show: true,
+                        //     position: 'end',
+                        //     formatter: '11.25万',
+                        //     color: '#FFF',
+                        //     height: 10,
+                        //     padding: [12, 12, 7, 12],
+                        //     lineHeight: 10,
+                        //     borderWidth: 2,
+                        //     borderColor: '#FFF',
+                        //     borderRadius: 2,
+                        //     fontWeight: 550,
+                        //     fontFamily: 'HYQiHeiX1-GEW',
+                        // },
+                        silent: false, // 鼠标悬停事件, true悬停不会出现实线
+                        symbol: 'none', // 去掉箭头
+                        // data: [[
+                        //     { coord: [2, 0] }, // [x第几个（从0开始），y轴起始点 ]
+                        //     { coord: [2, 800] } // [x第几个（从0开始），y轴起始点 ]
+                        // ]],
+                        data: [
+                            // { 
+                            //     xAxis: 5, 
+                            //     label: {
+                            //         show: true,
+                            //         position: 'end',
+                            //         formatter: '11.25万',
+                            //         color: '#FFF',
+                            //         height: 10,
+                            //         padding: [7, 7, 7, 7],
+                            //         lineHeight: 10,
+                            //         borderWidth: 1,
+                            //         borderColor: '#FFF',
+                            //     }, 
+                            // },
+                            // { name: 'l2', xAxis: 2 },
+                        ]
+                    },
+                    data: [
+                        "1200",
+                        "1400",
+                        "1008",
+                        "1411",
+                        "1026",
+                        "1288",
+                        "1300",
+                        "800",
+                        "1100",
+                        "1000",
+                        "1118",
+                        "1322",
+                        "1200",
+                        "1400",
+                        "1008",
+                        "1411",
+                        "1026",
+                        "1288",
+                        "1300",
+                        "800",
+                        "1100",
+                        "1000",
+                        "1118",
+                        "1322",
+                    ],
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(
+                                0,
+                                0,
+                                0,
+                                1,
+                                [
+                                    {
+                                        offset: 0,
+                                        color: "rgba(14,41,105,0.5)",
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: "rgba(255,255,255,0)",
+                                    },
+                                ],
+                                false
+                            ),
+                        },
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: "#21CBEE",
+                        },
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 2,
+                        },
+                    },
+                },
+                {
+                    name: "实际出口排放(mg/Nm³)",
+                    type: "line",
+                    smooth: true,
+                    showSymbol: false,
+                    symbol: "circle",
+                    yAxisIndex: 1,
+                    symbolSize: 6,
+                    data: [
+                        "1200",
+                        "1400",
+                        "808",
+                        "811",
+                        "626",
+                        "488",
+                        "1600",
+                        "1100",
+                        "500",
+                        "300",
+                        "1998",
+                        "822",
+                        "1200",
+                        "1400",
+                        "1008",
+                        "1411",
+                        "1026",
+                        "1288",
+                        "1300",
+                        "800",
+                        "1100",
+                        "1000",
+                        "1118",
+                        "1322",
+                    ],
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(
+                                0,
+                                0,
+                                0,
+                                1,
+                                [
+                                    {
+                                        offset: 0,
+                                        color: "rgba(252,73,62,.2)",
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: "rgba(252,73,62,0)",
+                                    },
+                                ],
+                                false
+                            ),
+                        },
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: "#FFA480",
+                        },
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 2,
+                        },
+                    },
+                },
+                {
+                    name: "总能耗(kW)",
+                    type: "line",
+                    smooth: true,
+                    showSymbol: false,
+                    symbol: "circle",
+                    yAxisIndex: 2,
+                    symbolSize: 6,
+                    data: [
+                        "300",
+                        "400",
+                        "900",
+                        "811",
+                        "626",
+                        "488",
+                        "1600",
+                        "1100",
+                        "500",
+                        "300",
+                        "1998",
+                        "822",
+                        "1400",
+                        "808",
+                        "811",
+                        "626",
+                        "488",
+                        "1600",
+                        "1100",
+                        "500",
+                        "300",
+                        "1998",
+                        "822",
+                        "1200",
+                    ],
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(
+                                0,
+                                0,
+                                0,
+                                1,
+                                [
+                                    {
+                                        offset: 0,
+                                        color: "rgba(118,138,255,.2)",
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: "rgba(118,138,255,0)",
+                                    },
+                                ],
+                                false
+                            ),
+                        },
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: "#768AFF",
+                        },
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 2,
+                        },
+                    },
+                },
+                {
+                    name: "负荷(MW)",
+                    type: "line",
+                    smooth: true,
+                    showSymbol: false,
+                    symbol: "circle",
+                    yAxisIndex: 3,
+                    symbolSize: 6,
+                    data: [
+                        "500",
+                        "100",
+                        "900",
+                        "811",
+                        "500",
+                        "991",
+                        "600",
+                        "200",
+                        "100",
+                        "300",
+                        "500",
+                        "822",
+                        "500",
+                        "100",
+                        "900",
+                        "811",
+                        "500",
+                        "991",
+                        "811",
+                        "626",
+                        "488",
+                        "1600",
+                        "1100",
+                        "500",
+                    ],
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(
+                                0,
+                                0,
+                                0,
+                                1,
+                                [
+                                    {
+                                        offset: 0,
+                                        color: "rgba(243,255,213,.2)",
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: "rgba(243,255,213,0)",
+                                    },
+                                ],
+                                false
+                            ),
+                        },
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: "#F3FFD5",
+                        },
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 2,
+                        },
+                    },
+                },
+            ],
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+
+        myChart.on('click', function(params) {
+            console.log(params);
+            // console.log(params.dataIndex)
+            if (params.componentType === 'series') {
+                // 采集所有曲线在当前点的数据信息
+                var valueInfo = [];
+                for (let i = 0; i < option.series.length; i++) {
+                    console.log(option.series[i].data[params.dataIndex]);
+                    valueInfo.push(option.series[i].data[params.dataIndex]);
+                }
+                
+                // 定义标线信息
+                var markline = { 
+                    xAxis: params.dataIndex, // 标线位置
+                    label: {
+                        show: true,
+                        position: 'end',
+                        formatter: valueInfo.join(','), // 展示信息
+                        color: '#FFF',
+                        height: 10,
+                        padding: [7, 7, 7, 7],
+                        lineHeight: 10,
+                        borderWidth: 1,
+                        borderColor: '#FFF',
+                    }
+                }
+                option.series[0].markLine.data.push(markline);
+            } else {
+                var marklines = option.series[0].markLine.data;
+                for (var i = 0; i < marklines.length; i++) {
+                    if (marklines[i].xAxis === params.data.xAxis) {
+                        // 再次点击标线，移除该标线
+                        option.series[0].markLine.data.splice(i, 1);
+                    }
+                    
+                }
+                
+            }
+            myChart.setOption(option);
+        });
+
+    </script>
+
+    </html>
