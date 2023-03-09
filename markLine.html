@@ -233,43 +233,9 @@
                             width: 2,
                             color: '#FFF',
                         },
-                        // label: {
-                        //     show: true,
-                        //     position: 'end',
-                        //     formatter: '11.25万',
-                        //     color: '#FFF',
-                        //     height: 10,
-                        //     padding: [12, 12, 7, 12],
-                        //     lineHeight: 10,
-                        //     borderWidth: 2,
-                        //     borderColor: '#FFF',
-                        //     borderRadius: 2,
-                        //     fontWeight: 550,
-                        //     fontFamily: 'HYQiHeiX1-GEW',
-                        // },
                         silent: false, // 鼠标悬停事件, true悬停不会出现实线
                         symbol: 'none', // 去掉箭头
-                        // data: [[
-                        //     { coord: [2, 0] }, // [x第几个（从0开始），y轴起始点 ]
-                        //     { coord: [2, 800] } // [x第几个（从0开始），y轴起始点 ]
-                        // ]],
-                        data: [
-                            // { 
-                            //     xAxis: 5, 
-                            //     label: {
-                            //         show: true,
-                            //         position: 'end',
-                            //         formatter: '11.25万',
-                            //         color: '#FFF',
-                            //         height: 10,
-                            //         padding: [7, 7, 7, 7],
-                            //         lineHeight: 10,
-                            //         borderWidth: 1,
-                            //         borderColor: '#FFF',
-                            //     }, 
-                            // },
-                            // { name: 'l2', xAxis: 2 },
-                        ]
+                        data: [] // 定义一个空数据，用于动态填充标线数据
                     },
                     data: [
                         "1200",
@@ -533,15 +499,17 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
 
-
+        // 图表点击事件
         myChart.on('click', function(params) {
-            console.log(params);
+            // console.log(params);
             // console.log(params.dataIndex)
+            
+            // 点击曲线点则创建当前点的标线，点击标线则删除该标线
             if (params.componentType === 'series') {
                 // 采集所有曲线在当前点的数据信息
                 var valueInfo = [];
                 for (let i = 0; i < option.series.length; i++) {
-                    console.log(option.series[i].data[params.dataIndex]);
+                    // console.log(option.series[i].data[params.dataIndex]);
                     valueInfo.push(option.series[i].data[params.dataIndex]);
                 }
                 
@@ -565,12 +533,10 @@
                 var marklines = option.series[0].markLine.data;
                 for (var i = 0; i < marklines.length; i++) {
                     if (marklines[i].xAxis === params.data.xAxis) {
-                        // 再次点击标线，移除该标线
+                        // 点击标线，移除该标线
                         option.series[0].markLine.data.splice(i, 1);
                     }
-                    
                 }
-                
             }
             myChart.setOption(option);
         });
