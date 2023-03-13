@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <!-- 引入刚刚下载的 ECharts 文件 -->
+    <script src="./echarts/dist/echarts.min.js"></script>
+    <script type="text/javascript" src="./echarts/dist/extension/ecStat.min.js"></script>
+</head>
+
+<body>
+    <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+    <div id="main" style="width: 100%; height:400px; background: black;"></div>
+    <button id="setYAxis">设置Y轴区间</button>
+    <script type="text/javascript">
+    var kh3 = {"errorCode":0,"message":"KH查询特定时间范围内的采样数据成功","data":[{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-02 14:33:31.770","DataVersion":0,"QualityStamp":"Good","DataValue":53.39250183105469},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-02 14:54:19.610","DataVersion":0,"QualityStamp":"Good","DataValue":53.26050567626953},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-03 03:49:30.447","DataVersion":0,"QualityStamp":"Good","DataValue":53.15325164794922},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-03 10:26:41.951","DataVersion":0,"QualityStamp":"Good","DataValue":53.21099853515625},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-03 19:56:41.463","DataVersion":0,"QualityStamp":"Good","DataValue":53.1614990234375},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-03 21:54:54.621","DataVersion":0,"QualityStamp":"Good","DataValue":53.40074920654297},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-03 22:15:41.487","DataVersion":0,"QualityStamp":"Good","DataValue":53.24400329589844},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-06 03:21:12.282","DataVersion":0,"QualityStamp":"Good","DataValue":53.1614990234375},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-06 08:29:36.783","DataVersion":0,"QualityStamp":"Good","DataValue":53.31825256347656},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-06 09:27:18.131","DataVersion":0,"QualityStamp":"Good","DataValue":53.24400329589844},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-06 09:55:15.693","DataVersion":0,"QualityStamp":"Good","DataValue":52.88099670410156},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-06 10:26:50.483","DataVersion":0,"QualityStamp":"Good","DataValue":51.998252868652344},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-06 13:00:32.171","DataVersion":0,"QualityStamp":"Good","DataValue":50.80199432373047},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-06 16:53:05.994","DataVersion":0,"QualityStamp":"Good","DataValue":49.894500732421875},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-06 21:54:57.41","DataVersion":0,"QualityStamp":"Good","DataValue":48.09600067138672},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-07 00:07:01.441","DataVersion":0,"QualityStamp":"Good","DataValue":47.61750030517578},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-07 02:45:56.281","DataVersion":0,"QualityStamp":"Good","DataValue":46.96575164794922},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-07 06:44:48.248","DataVersion":0,"QualityStamp":"Good","DataValue":45.629249572753906},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-07 11:23:58.463","DataVersion":0,"QualityStamp":"Good","DataValue":44.49074935913086},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-07 17:59:49.389","DataVersion":0,"QualityStamp":"Good","DataValue":42.89849853515625},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-08 02:03:02.962","DataVersion":0,"QualityStamp":"Good","DataValue":40.46474838256836},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-08 02:14:20.831","DataVersion":0,"QualityStamp":"Good","DataValue":39.01274871826172},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-08 02:21:48.714","DataVersion":0,"QualityStamp":"Good","DataValue":36.47174835205078},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-08 02:30:43.521","DataVersion":0,"QualityStamp":"Good","DataValue":35.3910026550293},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-08 03:02:00.101","DataVersion":0,"QualityStamp":"Good","DataValue":33.92250061035156},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-08 04:12:24.269","DataVersion":0,"QualityStamp":"Good","DataValue":32.27250289916992},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-08 06:53:15.590","DataVersion":0,"QualityStamp":"Good","DataValue":30.308998107910156},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-08 09:05:56.513","DataVersion":0,"QualityStamp":"Good","DataValue":28.68375015258789},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-08 13:40:40.816","DataVersion":0,"QualityStamp":"Good","DataValue":23.412002563476562},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-08 15:50:55.837","DataVersion":0,"QualityStamp":"Good","DataValue":22.59524917602539},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-08 17:51:01.160","DataVersion":0,"QualityStamp":"Good","DataValue":21.976497650146484},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-08 19:55:28.586","DataVersion":0,"QualityStamp":"Good","DataValue":20.87099838256836},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-09 03:06:06.561","DataVersion":0,"QualityStamp":"Good","DataValue":17.81024932861328},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-09 07:39:47.872","DataVersion":0,"QualityStamp":"Good","DataValue":15.500251770019531},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-09 10:00:35.113","DataVersion":0,"QualityStamp":"Good","DataValue":14.889751434326172},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-09 11:19:50.568","DataVersion":0,"QualityStamp":"Good","DataValue":15.450750350952148},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-09 13:18:22.762","DataVersion":0,"QualityStamp":"Good","DataValue":16.64699935913086},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-09 17:29:05.502","DataVersion":0,"QualityStamp":"Good","DataValue":16.498498916625977},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-09 20:03:24.120","DataVersion":0,"QualityStamp":"Good","DataValue":15.772499084472656},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-09 20:12:55.128","DataVersion":0,"QualityStamp":"Good","DataValue":15.822000503540039},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-09 20:57:07.646","DataVersion":0,"QualityStamp":"Good","DataValue":15.145498275756836},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-10 03:05:23.116","DataVersion":0,"QualityStamp":"Good","DataValue":13.759500503540039},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-10 05:22:36.541","DataVersion":0,"QualityStamp":"Good","DataValue":13.338748931884766},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-10 10:26:21.34","DataVersion":0,"QualityStamp":"Good","DataValue":11.581499099731445},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-10 11:48:57.806","DataVersion":0,"QualityStamp":"Good","DataValue":11.845499038696289},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-10 13:27:26.790","DataVersion":0,"QualityStamp":"Good","DataValue":12.33224868774414},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-10 17:29:54.227","DataVersion":0,"QualityStamp":"Good","DataValue":13.008750915527344},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-10 20:40:17.886","DataVersion":0,"QualityStamp":"Good","DataValue":12.596250534057617},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-11 02:30:58.287","DataVersion":0,"QualityStamp":"Good","DataValue":11.548500061035156},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-11 07:44:39.789","DataVersion":0,"QualityStamp":"Good","DataValue":10.616249084472656},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-11 10:01:34.677","DataVersion":0,"QualityStamp":"Good","DataValue":10.665750503540039},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-11 13:21:47.688","DataVersion":0,"QualityStamp":"Good","DataValue":12.101249694824219},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-11 17:57:14.280","DataVersion":0,"QualityStamp":"Good","DataValue":13.16550064086914},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-11 23:18:33.293","DataVersion":0,"QualityStamp":"Good","DataValue":12.918001174926758},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-12 06:13:04.238","DataVersion":0,"QualityStamp":"Good","DataValue":11.680500030517578},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-12 11:33:07.386","DataVersion":0,"QualityStamp":"Good","DataValue":11.23499870300293},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-12 17:02:59.629","DataVersion":0,"QualityStamp":"Good","DataValue":11.061750411987305},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-13 03:03:46.804","DataVersion":0,"QualityStamp":"Good","DataValue":9.386999130249023},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-13 07:37:48.512","DataVersion":0,"QualityStamp":"Good","DataValue":8.966249465942383},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-13 20:51:27.531","DataVersion":0,"QualityStamp":"Good","DataValue":8.850749969482422},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-14 04:24:32.400","DataVersion":0,"QualityStamp":"Good","DataValue":6.549001693725586},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-14 07:39:07.16","DataVersion":0,"QualityStamp":"Good","DataValue":3.9997501373291016},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-14 12:01:27.751","DataVersion":0,"QualityStamp":"Good","DataValue":2.0445003509521484},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-14 16:54:21.999","DataVersion":0,"QualityStamp":"Good","DataValue":0.6254997253417969},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-14 17:54:43.951","DataVersion":0,"QualityStamp":"Good","DataValue":0.3202495574951172},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-15 10:37:37.547","DataVersion":0,"QualityStamp":"Good","DataValue":-1.7834997177124023},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-15 12:12:13.418","DataVersion":0,"QualityStamp":"Good","DataValue":-1.3297500610351562},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-15 13:46:08.372","DataVersion":0,"QualityStamp":"Good","DataValue":-0.8842496871948242},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-15 20:16:07.392","DataVersion":0,"QualityStamp":"Good","DataValue":-0.9914999008178711},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-16 10:08:53.768","DataVersion":0,"QualityStamp":"Good","DataValue":-2.451749801635742},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-16 14:05:02.291","DataVersion":0,"QualityStamp":"Good","DataValue":-0.8759994506835938},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-16 19:06:34.980","DataVersion":0,"QualityStamp":"Good","DataValue":-0.017999649047851562},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-17 06:54:51.515","DataVersion":0,"QualityStamp":"Good","DataValue":-0.3315000534057617},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-17 10:25:48.839","DataVersion":0,"QualityStamp":"Good","DataValue":-0.4140005111694336},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-17 11:43:42.820","DataVersion":0,"QualityStamp":"Good","DataValue":0.18000030517578125},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-17 18:09:13.112","DataVersion":0,"QualityStamp":"Good","DataValue":2.0527496337890625},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-17 23:32:08.803","DataVersion":0,"QualityStamp":"Good","DataValue":2.1517505645751953},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-18 05:58:36.612","DataVersion":0,"QualityStamp":"Good","DataValue":1.0214996337890625},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-18 09:43:56.982","DataVersion":0,"QualityStamp":"Good","DataValue":0.3697500228881836},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-18 11:23:26.127","DataVersion":0,"QualityStamp":"Good","DataValue":1.1617488861083984},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-18 13:17:40.968","DataVersion":0,"QualityStamp":"Good","DataValue":2.6302490234375},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-18 17:59:31.815","DataVersion":0,"QualityStamp":"Good","DataValue":4.1647491455078125},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-18 22:21:06.473","DataVersion":0,"QualityStamp":"Good","DataValue":3.694499969482422},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-19 05:03:22.674","DataVersion":0,"QualityStamp":"Good","DataValue":2.9190006256103516},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-19 09:33:52.660","DataVersion":0,"QualityStamp":"Good","DataValue":2.1682510375976562},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-19 11:14:31.796","DataVersion":0,"QualityStamp":"Good","DataValue":2.762248992919922},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-19 13:21:51.456","DataVersion":0,"QualityStamp":"Good","DataValue":4.626750946044922},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-19 17:14:25.975","DataVersion":0,"QualityStamp":"Good","DataValue":6.111749649047852},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-19 21:01:46.227","DataVersion":0,"QualityStamp":"Good","DataValue":5.922000885009766},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-20 00:03:50.500","DataVersion":0,"QualityStamp":"Good","DataValue":4.486499786376953},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-20 05:15:36.477","DataVersion":0,"QualityStamp":"Good","DataValue":2.2094993591308594},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-20 10:36:32.992","DataVersion":0,"QualityStamp":"Good","DataValue":0.8234996795654297},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-20 13:03:57.468","DataVersion":0,"QualityStamp":"Good","DataValue":2.2094993591308594},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-20 19:34:19.824","DataVersion":0,"QualityStamp":"Good","DataValue":1.9125003814697266},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-21 02:44:10.871","DataVersion":0,"QualityStamp":"Good","DataValue":0.7822504043579102},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-21 09:33:41.829","DataVersion":0,"QualityStamp":"Good","DataValue":0.8317499160766602},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-21 12:08:25.116","DataVersion":0,"QualityStamp":"Good","DataValue":1.9455013275146484},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-21 18:02:22.487","DataVersion":0,"QualityStamp":"Good","DataValue":3.677999496459961},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-22 01:12:06.784","DataVersion":0,"QualityStamp":"Good","DataValue":4.148248672485352},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-22 08:52:11.482","DataVersion":0,"QualityStamp":"Good","DataValue":2.7210006713867188},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-22 11:22:00.958","DataVersion":0,"QualityStamp":"Good","DataValue":2.2672500610351562},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-22 14:20:35.6","DataVersion":0,"QualityStamp":"Good","DataValue":3.554250717163086},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-22 18:17:13.633","DataVersion":0,"QualityStamp":"Good","DataValue":4.535999298095703},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-22 23:16:24.117","DataVersion":0,"QualityStamp":"Good","DataValue":4.659749984741211},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-23 02:53:41.536","DataVersion":0,"QualityStamp":"Good","DataValue":4.024499893188477},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-23 07:08:08.891","DataVersion":0,"QualityStamp":"Good","DataValue":2.448749542236328},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-23 09:22:41.18","DataVersion":0,"QualityStamp":"Good","DataValue":1.7474994659423828},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-23 13:49:44.757","DataVersion":0,"QualityStamp":"Good","DataValue":1.5989990234375},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-23 17:42:35.663","DataVersion":0,"QualityStamp":"Good","DataValue":0.8977499008178711},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-24 01:46:08.678","DataVersion":0,"QualityStamp":"Good","DataValue":-1.4782495498657227},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-24 04:19:04.452","DataVersion":0,"QualityStamp":"Good","DataValue":-2.0722503662109375},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-24 09:35:08.962","DataVersion":0,"QualityStamp":"Good","DataValue":-4.33275032043457},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-24 11:33:29.635","DataVersion":0,"QualityStamp":"Good","DataValue":-3.92025089263916},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-24 13:06:07.92","DataVersion":0,"QualityStamp":"Good","DataValue":-3.251999855041504},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-24 15:12:52.502","DataVersion":0,"QualityStamp":"Good","DataValue":-3.5819997787475586},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-24 19:32:18.804","DataVersion":0,"QualityStamp":"Good","DataValue":-3.631500244140625},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-25 06:00:40.939","DataVersion":0,"QualityStamp":"Good","DataValue":-5.743499755859375},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-25 09:38:05.32","DataVersion":0,"QualityStamp":"Good","DataValue":-5.7352495193481445},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-25 11:47:56.639","DataVersion":0,"QualityStamp":"Good","DataValue":-4.737000465393066},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-25 13:55:15.347","DataVersion":0,"QualityStamp":"Good","DataValue":-3.812999725341797},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-25 18:30:06.239","DataVersion":0,"QualityStamp":"Good","DataValue":-2.3444995880126953},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-26 01:47:39.891","DataVersion":0,"QualityStamp":"Good","DataValue":-1.948500633239746},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-26 06:55:52.863","DataVersion":0,"QualityStamp":"Good","DataValue":-1.9320001602172852},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-27 09:54:01.632","DataVersion":0,"QualityStamp":"Good","DataValue":-1.2472496032714844},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-27 11:29:16.593","DataVersion":0,"QualityStamp":"Good","DataValue":-0.32324981689453125},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-27 12:35:41.768","DataVersion":0,"QualityStamp":"Good","DataValue":0.5347499847412109},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-27 14:47:21.435","DataVersion":0,"QualityStamp":"Good","DataValue":0.8234996795654297},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-27 20:13:11.882","DataVersion":0,"QualityStamp":"Good","DataValue":1.2854995727539062},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-28 03:16:33.426","DataVersion":0,"QualityStamp":"Good","DataValue":0.42750072479248047},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-28 06:29:38.414","DataVersion":0,"QualityStamp":"Good","DataValue":0.6502504348754883},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-28 10:06:49.23","DataVersion":0,"QualityStamp":"Good","DataValue":0.9060001373291016},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-28 11:29:46.652","DataVersion":0,"QualityStamp":"Good","DataValue":1.7639999389648438},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-28 12:57:21.671","DataVersion":0,"QualityStamp":"Good","DataValue":2.729249954223633},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-28 14:55:07.667","DataVersion":0,"QualityStamp":"Good","DataValue":3.504749298095703},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-28 19:10:36.566","DataVersion":0,"QualityStamp":"Good","DataValue":4.618499755859375},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-29 08:12:47.300","DataVersion":0,"QualityStamp":"Good","DataValue":3.677999496459961},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-29 10:08:59.721","DataVersion":0,"QualityStamp":"Good","DataValue":4.0162506103515625},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-29 11:23:54.81","DataVersion":0,"QualityStamp":"Good","DataValue":4.9980010986328125},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-29 13:20:40.702","DataVersion":0,"QualityStamp":"Good","DataValue":6.60675048828125},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-29 15:28:52.172","DataVersion":0,"QualityStamp":"Good","DataValue":7.572000503540039},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-29 17:52:44.732","DataVersion":0,"QualityStamp":"Good","DataValue":8.322750091552734},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-29 20:07:53.72","DataVersion":0,"QualityStamp":"Good","DataValue":8.14124870300293},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-30 01:28:06.60","DataVersion":0,"QualityStamp":"Good","DataValue":6.631500244140625},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-30 08:07:36.40","DataVersion":0,"QualityStamp":"Good","DataValue":5.699249267578125},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-30 09:58:46.944","DataVersion":0,"QualityStamp":"Good","DataValue":5.963249206542969},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-30 11:35:30.128","DataVersion":0,"QualityStamp":"Good","DataValue":7.052249908447266},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-30 13:32:33.454","DataVersion":0,"QualityStamp":"Good","DataValue":7.877250671386719},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-30 17:27:41.921","DataVersion":0,"QualityStamp":"Good","DataValue":9.24675178527832},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-30 20:39:39.849","DataVersion":0,"QualityStamp":"Good","DataValue":9.222000122070312},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-31 08:43:37.307","DataVersion":0,"QualityStamp":"Good","DataValue":7.1347503662109375},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-31 10:43:07.825","DataVersion":0,"QualityStamp":"Good","DataValue":7.374000549316406},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-31 13:49:07.955","DataVersion":0,"QualityStamp":"Good","DataValue":9.461250305175781},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-31 17:54:47.678","DataVersion":0,"QualityStamp":"Good","DataValue":10.773000717163086},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-01-31 22:33:27.973","DataVersion":0,"QualityStamp":"Good","DataValue":10.764749526977539},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-01 02:15:45.725","DataVersion":0,"QualityStamp":"Good","DataValue":9.890249252319336},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-01 08:48:35.466","DataVersion":0,"QualityStamp":"Good","DataValue":6.309749603271484},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-01 11:21:49.433","DataVersion":0,"QualityStamp":"Good","DataValue":5.682750701904297},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-01 18:51:35.754","DataVersion":0,"QualityStamp":"Good","DataValue":5.682750701904297},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-01 21:50:58.88","DataVersion":0,"QualityStamp":"Good","DataValue":4.956748962402344},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-02 01:47:13.648","DataVersion":0,"QualityStamp":"Good","DataValue":3.9502506256103516},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-02 10:10:32.691","DataVersion":0,"QualityStamp":"Good","DataValue":3.719249725341797},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-02 14:15:09.830","DataVersion":0,"QualityStamp":"Good","DataValue":4.329750061035156},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-02 19:02:49.507","DataVersion":0,"QualityStamp":"Good","DataValue":5.088748931884766},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-03 00:50:23.970","DataVersion":0,"QualityStamp":"Good","DataValue":5.105249404907227},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-03 09:17:21.656","DataVersion":0,"QualityStamp":"Good","DataValue":4.329750061035156},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-03 18:27:45.741","DataVersion":0,"QualityStamp":"Good","DataValue":6.680999755859375},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-03 22:02:43.905","DataVersion":0,"QualityStamp":"Good","DataValue":6.672748565673828},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-04 08:26:29.385","DataVersion":0,"QualityStamp":"Good","DataValue":5.212499618530273},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-04 10:23:25.939","DataVersion":0,"QualityStamp":"Good","DataValue":5.459999084472656},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-04 14:16:49.244","DataVersion":0,"QualityStamp":"Good","DataValue":7.6875},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-04 17:29:01.678","DataVersion":0,"QualityStamp":"Good","DataValue":8.644498825073242},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-04 21:44:44.997","DataVersion":0,"QualityStamp":"Good","DataValue":8.207250595092773},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-05 05:56:10.420","DataVersion":0,"QualityStamp":"Good","DataValue":6.417001724243164},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-05 09:05:21.458","DataVersion":0,"QualityStamp":"Good","DataValue":5.988000869750977},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-05 12:11:43.137","DataVersion":0,"QualityStamp":"Good","DataValue":7.01099967956543},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-05 17:05:30.988","DataVersion":0,"QualityStamp":"Good","DataValue":8.958000183105469},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-05 20:37:59.23","DataVersion":0,"QualityStamp":"Good","DataValue":8.99100112915039},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-06 09:39:45.253","DataVersion":0,"QualityStamp":"Good","DataValue":7.621500015258789},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-06 11:41:39.939","DataVersion":0,"QualityStamp":"Good","DataValue":8.34749984741211},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-06 13:55:49.189","DataVersion":0,"QualityStamp":"Good","DataValue":9.354000091552734},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-06 17:55:05.400","DataVersion":0,"QualityStamp":"Good","DataValue":9.947999954223633},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-06 20:11:12.864","DataVersion":0,"QualityStamp":"Good","DataValue":9.609750747680664},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-07 04:32:02.310","DataVersion":0,"QualityStamp":"Good","DataValue":5.905500411987305},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-07 10:09:47.58","DataVersion":0,"QualityStamp":"Good","DataValue":4.552499771118164},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-07 12:17:42.300","DataVersion":0,"QualityStamp":"Good","DataValue":4.874250411987305},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-07 16:39:06.766","DataVersion":0,"QualityStamp":"Good","DataValue":6.829500198364258},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-07 20:49:32.635","DataVersion":0,"QualityStamp":"Good","DataValue":7.340999603271484},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-08 00:44:23.399","DataVersion":0,"QualityStamp":"Good","DataValue":7.1347503662109375},{"TagName":"SYS6_A_TE_1101b","ErrorStatus":0,"DataType":7,"TimeStamp":"2023-02-08 06:12:32.731","DataVersion":0,"QualityStamp":"Good","DataValue":5.517749786376953}],"tag_oks":["SYS6_A_TE_1101b"]};
+    var timeline = [];
+    var kh3Value = [];
+    for (var i = 0; i < kh3.data.length; i++) {
+        timeline.push(kh3.data[i].TimeStamp);
+        kh3Value.push(kh3.data[i].DataValue);
+    }
+
+    var base = +new Date();
+
+
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 指定图表的配置项和数据
+    echarts.registerTransform(ecStat.transform.histogram);
+    var option = {
+        tooltip: {
+            trigger: "axis",
+            axisPointer: {
+                lineStyle: {
+                    color: "#ddd",
+                },
+            },
+            backgroundColor: "rgba(255,255,255,1)",
+            padding: [5, 10],
+            textStyle: {
+                color: "#7588E4",
+            },
+            extraCssText: "box-shadow: 0 0 5px rgba(0,0,0,0.3)",
+        },
+        grid: {
+            left: "12%",
+            right: "1.5%",
+            bottom: "8%",
+        },
+        legend: {
+            right: 20,
+            orient: "horizontal",
+            data: ["排放限制(mg/Nm³)", "实际出口排放(mg/Nm³)", "总能耗(kW)", "负荷(MW)"],
+            itemGap: 20,
+            textStyle: {
+                color: "#fff",
+                fontSize: "14px",
+                padding: [0, 0, 0, 10],
+            },
+            icon: "rect",
+            itemWidth: 53,
+            itemHeight: 2,
+        },
+        // x轴数据
+        // xAxis: {
+        //     type: "time",
+        //     // data: timeline,
+        //     boundaryGap: false,
+        //     splitLine: {
+        //         show: true,
+        //         interval: "auto",
+        //         lineStyle: {
+        //             color: ["rgba(255,255,255,.18)"],
+        //         },
+        //     },
+        //     axisTick: {
+        //         show: false,
+        //     },
+        //     axisLine: {
+        //         lineStyle: {
+        //             color: "#609ee9",
+        //         },
+        //     },
+        //     axisLabel: {
+        //         margin: 10,
+        //         textStyle: {
+        //             fontSize: 14,
+        //         },
+        //     },
+        // },
+        xAxis: {
+            type: 'time',
+            boundaryGap: false
+        },
+        // y轴数据，有几个定义几个即可  position: "left",控制y轴的位置  offset: 60,控制y轴的偏移量
+        yAxis: [
+            {
+                name: 'mg/Nm³',
+                nameRotate: 45,
+                type: "value",
+                position: "left",
+                offset: 0,
+                splitLine: {
+                    lineStyle: {
+                        color: ["rgba(255,255,255,.18)"],
+                    },
+                },
+                axisTick: {
+                    show: false,
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: "#F19D7E",
+                    },
+                },
+                axisLabel: {
+                    margin: 10,
+                    textStyle: {
+                        fontSize: 12,
+                        color: "#21CBEE",
+                    },
+                },
+            },
+            // {
+            //     name: 'mg/Nm³',
+            //     nameRotate: 45,
+            //     type: "value",
+            //     position: "left",
+            //     offset: 50,
+            //     splitLine: {
+            //         lineStyle: {
+            //             color: ["rgba(255,255,255,.18)"],
+            //         },
+            //     },
+            //     axisTick: {
+            //         show: true,
+            //         inside: true,
+            //     },
+            //     axisLine: {
+            //         show: true,
+            //         lineStyle: {
+            //             color: "#FFA480",
+            //         },
+            //     },
+            //     axisLabel: {
+            //         margin: 10,
+            //         textStyle: {
+            //             fontSize: 12,
+            //             color: "#FFA480",
+            //         },
+            //     },
+            // },
+            // {
+            //     name:'kW',
+            //     nameRotate: 45,
+            //     type: "value",
+            //     position: "left",
+            //     offset: 100,
+            //     splitLine: {
+            //         show: false,
+            //     },
+            //     axisTick: {
+            //         show: true,
+            //         inside: true,
+            //     },
+            //     axisLine: {
+            //         show: true,
+            //         lineStyle: {
+            //             color: "#768AFF",
+            //             width: 1,
+            //             type: "solid",
+            //         },
+            //     },
+            //     axisLabel: {
+            //         margin: 10,
+            //         textStyle: {
+            //             fontSize: 12,
+            //             color: "#768AFF",
+            //         },
+            //     },
+            // },
+            // {
+            //     name:'MW',
+            //     nameRotate: 45,
+            //     type: "value",
+            //     position: "left",
+            //     offset: 150,
+            //     splitLine: {
+            //         show: false,
+            //     },
+            //     axisTick: {
+            //         show: true,
+            //         inside: true,
+            //     },
+            //     axisLine: {
+            //         show: true,
+            //         lineStyle: {
+            //             color: "#F3FFD5",
+            //             width: 1,
+            //             type: "solid",
+            //         },
+            //     },
+            //     axisLabel: {
+            //         margin: 10,
+            //         textStyle: {
+            //             fontSize: 12,
+            //             color: "#FFFFFF",
+            //         },
+            //     },
+            // },
+        ],
+        // 有几个Y轴定义几个数据即可
+        series: [
+            {
+                name: "kh3",
+                type: "line",
+                smooth: false,
+                showSymbol: false,
+                symbol: "circle",
+                yAxisIndex: 0,
+                symbolSize: 6,
+                data: kh3Value,
+                areaStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(
+                            0,
+                            0,
+                            0,
+                            1,
+                            [
+                                {
+                                    offset: 0,
+                                    color: "rgba(14,41,105,0.5)",
+                                },
+                                {
+                                    offset: 1,
+                                    color: "rgba(255,255,255,0)",
+                                },
+                            ],
+                            false
+                        ),
+                    },
+                },
+                itemStyle: {
+                    normal: {
+                        color: "#21CBEE",
+                    },
+                },
+                lineStyle: {
+                    normal: {
+                        width: 2,
+                    },
+                },
+            },
+            // {
+            //     name: "实际出口排放(mg/Nm³)",
+            //     type: "line",
+            //     smooth: true,
+            //     showSymbol: false,
+            //     symbol: "circle",
+            //     yAxisIndex: 1,
+            //     symbolSize: 6,
+            //     data: [
+            //         "1200",
+            //         "1400",
+            //         "808",
+            //         "811",
+            //         "626",
+            //         "488",
+            //         "1600",
+            //         "1100",
+            //         "500",
+            //         "300",
+            //         "1998",
+            //         "822",
+            //         "1200",
+            //         "1400",
+            //         "1008",
+            //         "1411",
+            //         "1026",
+            //         "1288",
+            //         "1300",
+            //         "800",
+            //         "1100",
+            //         "1000",
+            //         "1118",
+            //         "1322",
+            //     ],
+            //     areaStyle: {
+            //         normal: {
+            //             color: new echarts.graphic.LinearGradient(
+            //                 0,
+            //                 0,
+            //                 0,
+            //                 1,
+            //                 [
+            //                     {
+            //                         offset: 0,
+            //                         color: "rgba(252,73,62,.2)",
+            //                     },
+            //                     {
+            //                         offset: 1,
+            //                         color: "rgba(252,73,62,0)",
+            //                     },
+            //                 ],
+            //                 false
+            //             ),
+            //         },
+            //     },
+            //     itemStyle: {
+            //         normal: {
+            //             color: "#FFA480",
+            //         },
+            //     },
+            //     lineStyle: {
+            //         normal: {
+            //             width: 2,
+            //         },
+            //     },
+            // },
+            // {
+            //     name: "总能耗(kW)",
+            //     type: "line",
+            //     smooth: true,
+            //     showSymbol: false,
+            //     symbol: "circle",
+            //     yAxisIndex: 2,
+            //     symbolSize: 6,
+            //     data: [
+            //         "300",
+            //         "400",
+            //         "900",
+            //         "811",
+            //         "626",
+            //         "488",
+            //         "1600",
+            //         "1100",
+            //         "500",
+            //         "300",
+            //         "1998",
+            //         "822",
+            //         "1400",
+            //         "808",
+            //         "811",
+            //         "626",
+            //         "488",
+            //         "1600",
+            //         "1100",
+            //         "500",
+            //         "300",
+            //         "1998",
+            //         "822",
+            //         "1200",
+            //     ],
+            //     areaStyle: {
+            //         normal: {
+            //             color: new echarts.graphic.LinearGradient(
+            //                 0,
+            //                 0,
+            //                 0,
+            //                 1,
+            //                 [
+            //                     {
+            //                         offset: 0,
+            //                         color: "rgba(118,138,255,.2)",
+            //                     },
+            //                     {
+            //                         offset: 1,
+            //                         color: "rgba(118,138,255,0)",
+            //                     },
+            //                 ],
+            //                 false
+            //             ),
+            //         },
+            //     },
+            //     itemStyle: {
+            //         normal: {
+            //             color: "#768AFF",
+            //         },
+            //     },
+            //     lineStyle: {
+            //         normal: {
+            //             width: 2,
+            //         },
+            //     },
+            // },
+            // {
+            //     name: "负荷(MW)",
+            //     type: "line",
+            //     smooth: true,
+            //     showSymbol: false,
+            //     symbol: "circle",
+            //     yAxisIndex: 3,
+            //     symbolSize: 6,
+            //     data: [
+            //         "500",
+            //         "100",
+            //         "900",
+            //         "811",
+            //         "500",
+            //         "991",
+            //         "600",
+            //         "200",
+            //         "100",
+            //         "300",
+            //         "500",
+            //         "822",
+            //         "500",
+            //         "100",
+            //         "900",
+            //         "811",
+            //         "500",
+            //         "991",
+            //         "811",
+            //         "626",
+            //         "488",
+            //         "1600",
+            //         "1100",
+            //         "500",
+            //     ],
+            //     areaStyle: {
+            //         normal: {
+            //             color: new echarts.graphic.LinearGradient(
+            //                 0,
+            //                 0,
+            //                 0,
+            //                 1,
+            //                 [
+            //                     {
+            //                         offset: 0,
+            //                         color: "rgba(243,255,213,.2)",
+            //                     },
+            //                     {
+            //                         offset: 1,
+            //                         color: "rgba(243,255,213,0)",
+            //                     },
+            //                 ],
+            //                 false
+            //             ),
+            //         },
+            //     },
+            //     itemStyle: {
+            //         normal: {
+            //             color: "#F3FFD5",
+            //         },
+            //     },
+            //     lineStyle: {
+            //         normal: {
+            //             width: 2,
+            //         },
+            //     },
+            // },
+        ],
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+    document.getElementById('setYAxis').onclick = function(e) {
+        myChart.setOption({
+            yAxis: [
+                {
+                    min: -200,
+                    max: 200
+                }
+            ]
+        });
+    }
+    </script>
+
+    </html>
