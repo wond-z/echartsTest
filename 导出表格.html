@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <!-- 引入刚刚下载的 ECharts 文件 -->
+    <script src="./echarts/dist/echarts.min.js"></script>
+    <script src="./libs/jQuery_v3.3.1/jquery.min.js"></script>
+    <!-- <script src="./libs/jquery.table2excel/dist/jquery.table2excel.min.js"></script> -->
+    <script src="./libs/xlsx.full.min.js"></script>
+    <script src="./libs/FileSaver.min.js"></script>
+</head>
+
+<body>
+    <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+    <div id="main" style="width: 100%; height:400px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            toolbox: {
+                top: '0.5%', //图例距离上的距离
+                right: '1%', //图例距离上的距离
+                // iconStyle: {
+                //     borderColor: '#5BD1D7',
+                //     color: 'none'
+                // },
+                feature: {
+                    dataView: {
+                        show: true,
+                        lang: ['数据视图', '关闭', '导出Excel'],
+                        readOnly: false,
+                        backgroundColor: '#CEEFE4', // 浮层背景色
+                        textareaColor: '#DAA520', // 浮层文本输入区颜色
+                        optionToContent: function (opt) {
+                            var axisData = opt.xAxis[0].data; // axisData是你想定义的表格第一列的数据，我这里设置为柱形图的x轴数据
+                            var series = opt.series; // 折线图数据
+                            var tdHeads = '<td  style="padding: 0 10px">时间</td>'; // 表头
+                            var tdBodys = ''; // 数据
+                            series.forEach(function (item) {
+                                //组装表头
+                                tdHeads += '<td style="padding: 0 10px">' + item.name + '</td>';
+                            });
+                            var table = '<table id="tableExcel" border="1" style="margin-left:20px;border-collapse:collapse;font-size:14px;text-align:center"><tbody><tr>' + tdHeads + ' </tr>';
+                            for (var i = 0, l = axisData.length; i < l; i++) {
+                                for (var j = 0; j < series.length; j++) {
+                                    //组装表数据
+                                    tdBodys += '<td>' + series[j].data[i] + '</td>';
+                                }
+                                table += '<tr><td style="padding: 0 10px">' + axisData[i] + '</td>' + tdBodys + '</tr>';
+                                tdBodys = '';
+                            }
+                            table += '</tbody></table>';
+                            return table;
+                        },
+                        // 方式一：使用jquery.table2excel.min.js导出
+                        // contentToOption: function (opts) {
+                        //     $("#tableExcel").table2excel({
+                        //         exclude: ".noExl", // 过滤位置的 css 类名
+                        //         filename: '表格', // 文件名称
+                        //         sheetName: 'sheet1',
+                        //         name: "Excel Document Name.xls",
+                        //         exclude_img: true,
+                        //         exclude_links: true,
+                        //         exclude_inputs: true
+                        //     });
+                        // },
+                        // 方式二：使用xlsx和FileSaver插件导出
+                        contentToOption: function (HTMLDomElement, opt) {
+                            let et = XLSX.utils.table_to_book(
+                                document.getElementById("tableExcel")
+                            );
+                            let etout = XLSX.write(et, {
+                                bookType: "xlsx",
+                                bookSST: true,
+                                type: "array",
+                            });
+
+                            try {
+                                saveAs(
+                                    new Blob([etout], {
+                                        type: "application/octet-stream",
+                                    }),
+                                    "表格" + "-" + new Date().toLocaleString() + ".xlsx"
+                                );
+                            } catch (e) {
+                                console.log(e);
+                            }
+                            return etout;
+                        },
+                    },
+                    // magicType: {show: true, type: ['line', 'bar']},
+                    restore: { show: true },
+                },
+            },
+            legend: {
+                top: '10%',
+                left: '5%',
+                data: ['瞬时热量', '瞬时电量', '能效比'],
+                // textStyle: {
+                //     color: '00D2F1',
+                //     fontsize: 12,
+                // },
+
+            },
+            grid: {
+                top: '25%',
+                bottom: '2%',
+                left: '3%',
+                right: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                data: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+                axisLine: { // 坐标轴轴线相关设置
+                    show: true,
+                    lineStyle: {
+                        color: '#8AC6D1'
+                    }
+                },
+                axisTick: {
+                    show: true,
+                    inside: false, // 坐标轴刻度是否朝内，默认朝外。
+                    lineStyle: {
+                        color: '#8AC6D1'
+                    }
+                },// 坐标轴刻度相关设置
+                axisLabel: {  // 坐标轴刻度标签的相关设置
+                    show: true,
+                    textStyle: {   //y轴字体颜色设置
+                        show: true,
+                        fontFamily: '微软雅黑',
+                        color: "#FFFFFF",
+                        fontSize: '12',
+                    },
+                }
+            },
+            yAxis: [
+                {
+                    type: 'value',
+                    // name: '瞬时热量',   
+                    nameTextStyle: { //Y轴标志的字体颜色
+                        color: "#FFFFFF",
+                        padding: [0, 0, -10, 60],//1: 2: 3:底部；4:右
+                        fontSize: 12
+                    },
+                    // min: 0,
+                    // max: 250,
+                    // interval: 50,
+                    axisLine: { // 坐标轴轴线相关设置
+                        show: true,
+                        symbol: ['none', 'triangle'],
+                        symbolOffset: 8, // 偏移距离
+                        symbolSize: [10, 15], // 箭头宽高
+                        // show:false , 
+                        lineStyle: {
+                            color: '#8AC6D1'
+                        }
+                    },
+                    axisTick: {
+                        // show:true,
+                        show: false,
+                        inside: false, // 坐标轴刻度是否朝内，默认朝外。
+                        lineStyle: {
+                            color: '#8AC6D1'
+                        }
+                    },// 坐标轴刻度相关设置
+                    axisLabel: {  // 坐标轴刻度标签的相关设置
+                        // show:true,
+                        show: false,
+                        showMaxLabel: false, // 坐标轴延长线 是否显示最大值
+                        textStyle: {
+                            show: false,
+                            fontFamily: '微软雅黑',
+                            color: "#8AC6D1",
+                            fontSize: '12',
+                        },
+                    },
+                    splitLine: {
+                        //show:true,
+                        show: false,
+                        lineStyle: {
+                            type: 'dashed',//dotted:点状,dashed:虚线
+                            opacity: 1 //不透明
+                        }
+                    },
+
+                },
+                {
+                    type: 'value',
+                    // name: '能效比',  
+                    nameTextStyle: { //Y轴标志的字体颜色
+                        color: "#FFFFFF",
+                        padding: [0, 0, -10, -55],//1: 2: 3:底部；4:右
+                        fontSize: 12
+                    },
+                    // min: 0,
+                    // max: 250,
+                    // interval: 50,
+                    axisLine: { // 坐标轴轴线相关设置
+                        show: true,
+                        symbol: ['none', 'triangle'],
+                        symbolOffset: 8, // 偏移距离
+                        symbolSize: [10, 15], // 箭头宽高
+                        // show:false , 
+                        lineStyle: {
+                            color: '#8AC6D1'
+                        }
+                    },
+                    axisTick: {
+                        // show:true,
+                        show: false,
+                        inside: false, // 坐标轴刻度是否朝内，默认朝外。
+                        lineStyle: {
+                            color: '#8AC6D1'
+                        }
+                    },// 坐标轴刻度相关设置
+                    axisLabel: {  // 坐标轴刻度标签的相关设置
+                        // show:true,
+                        show: true,
+                        showMaxLabel: false, // 坐标轴延长线 是否显示最大值
+                        textStyle: {
+                            show: false,
+                            fontFamily: '微软雅黑',
+                            color: "#8AC6D1",
+                            fontSize: '12',
+                        },
+                    },
+                    splitLine: {
+                        //show:true,
+                        show: false,
+                        lineStyle: {
+                            type: 'dashed',//dotted:点状,dashed:虚线
+                            opacity: 1 //不透明
+                        }
+                    },
+                    //   formatter: '{value} GJ' //此处为热、水、电单位 
+                },
+            ],
+            series: [
+                {
+                    name: '瞬时热量',
+                    type: 'line',
+                    color: '#1EE3CF',
+                    stack: 'Total',
+                    data: [120, 132, 101, 134, 90, 230, 210, 132, 101, 134, 90, 230, 210]
+                },
+                {
+                    name: '瞬时电量',
+                    type: 'line',
+                    color: '#6B48FF',
+                    stack: 'Total',
+                    data: [220, 182, 191, 234, 290, 330, 310, 182, 191, 234, 290, 330, 310]
+                },
+                {
+                    name: '能效比',
+                    type: 'line',
+                    color: '#E42C64',
+                    stack: 'Total',
+                    data: [150, 232, 201, 154, 190, 330, 410, 232, 201, 154, 190, 330, 410]
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+
+</html>
