@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <!-- 引入刚刚下载的 ECharts 文件 -->
+    <script src="./echarts/dist/echarts.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+    <div id="main" style="width: 100%; height:100vh;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        var graph = {
+            "nodes": [
+                {
+                    "id": "0",
+                    "name": "蘑菇王国",
+                    "symbolSize": 19.12381,
+                    "x": -266.82776,
+                    "y": 299.6904,
+                    "value": 28.685715,
+                    "category": 0
+                },
+                {
+                    "id": "1",
+                    "name": "瀑布国",
+                    "symbolSize": 2.6666666666666665,
+                    "x": -418.08344,
+                    "y": 446.8853,
+                    "value": 4,
+                    "category": 1
+                },
+                {
+                    "id": "2",
+                    "name": "沙之国",
+                    "symbolSize": 6.323809333333333,
+                    "x": -212.76357,
+                    "y": 245.29176,
+                    "value": 9.485714,
+                    "category": 2
+                },
+                {
+                    "id": "3",
+                    "name": "湖之国",
+                    "symbolSize": 6.323809333333333,
+                    "x": -242.82404,
+                    "y": 235.26283,
+                    "value": 9.485714,
+                    "category": 3
+                },
+                {
+                    "id": "4",
+                    "name": "森之国",
+                    "symbolSize": 2.6666666666666665,
+                    "x": -379.30386,
+                    "y": 429.06424,
+                    "value": 4,
+                    "category": 4
+                },
+                {
+                    "id": "5",
+                    "name": "云之国",
+                    "symbolSize": 2.6666666666666665,
+                    "x": -379.30386,
+                    "y": 429.06424,
+                    "value": 5,
+                    "category": 5
+                },
+                {
+                    "id": "6",
+                    "name": "遗落之国",
+                    "symbolSize": 2.6666666666666665,
+                    "x": -379.30386,
+                    "y": 429.06424,
+                    "value": 6,
+                    "category": 6
+                },
+                {
+                    "id": "7",
+                    "name": "都市国",
+                    "symbolSize": 2.6666666666666665,
+                    "x": -417.26337,
+                    "y": 406.03506,
+                    "value": 7,
+                    "category": 5
+                },
+                {
+                    "id": "8",
+                    "name": "海之国",
+                    "symbolSize": 2.6666666666666665,
+                    "x": -332.6012,
+                    "y": 485.16974,
+                    "value": 8,
+                    "category": 6
+                },
+                {
+                    "id": "9",
+                    "name": "雪之国",
+                    "symbolSize": 2.6666666666666665,
+                    "x": -382.69568,
+                    "y": 475.09113,
+                    "value": 9,
+                    "category": 7
+                },
+                {
+                    "id": "10",
+                    "name": "料理国",
+                    "symbolSize": 2.6666666666666665,
+                    "x": -320.384,
+                    "y": 387.17325,
+                    "value": 10,
+                    "category": 8
+                },
+                {
+                    "id": "11",
+                    "name": "被夺之国",
+                    "symbolSize": 2.6666666666666665,
+                    "x": -320.384,
+                    "y": 387.17325,
+                    "value": 11,
+                    "category": 8
+                },
+                {
+                    "id": "12",
+                    "name": "酷霸王国",
+                    "symbolSize": 2.6666666666666665,
+                    "x": -344.39832,
+                    "y": 451.16772,
+                    "value": 12,
+                    "category": 9
+                },
+                {
+                    "id": "13",
+                    "name": "月之国",
+                    "symbolSize": 2.6666666666666665,
+                    "x": -344.39832,
+                    "y": 451.16772,
+                    "value": 13,
+                    "category": 9
+                }
+            ],
+            "links": [
+                {
+                    "source": "0",
+                    "target": "9"
+                },
+                {
+                    "source": "2",
+                    "target": "7"
+                },
+                
+                
+            ],
+            "categories": []
+        };
+
+        graph.nodes.forEach(function (node) {
+            node.symbolSize = 30;
+            graph.categories.push({name: node.name});
+        });
+
+        var option = {
+            title: {
+                text: 'Odyssey',
+                subtext: 'Default layout',
+                top: 'bottom',
+                left: 'right'
+            },
+            tooltip: {},
+            legend: [
+                {
+                    // selectedMode: 'single',
+                    data: graph.categories.map(function (a) {
+                        return a.name;
+                    })
+                }
+            ],
+            series: [
+                {
+                    name: 'Les Miserables',
+                    type: 'graph',
+                    layout: 'force',
+                    data: graph.nodes,
+                    links: graph.links,
+                    categories: graph.categories,
+                    roam: true,
+                    label: {
+                        show: true,
+                        position: 'top',
+                        // color: '#fff'
+                    },
+                    force: {
+                        repulsion: 200
+                    },
+                    edgeSymbol: ['none', 'arrow'],
+                    edgeSymbolSize: [10, 10],
+                    effect: {
+                        show: true,//是否 运动
+                        trailLength: .1,
+                        symbol: "image://https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1585824156011&di=a8c5a0a2ab7d10f2b812f0443f881d1b&imgtype=0&src=http%3A%2F%2Fbpic.588ku.com%2Felement_origin_min_pic%2F00%2F97%2F79%2F0456f32aca5d2d2.jpg",
+                        color: '#777777',
+                        symbolSize: 22
+                    },
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+
+    </script>
+
+</html>
