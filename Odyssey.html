@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
     <!-- 引入刚刚下载的 ECharts 文件 -->
     <script src="./echarts/dist/echarts.min.js"></script>
     <style>
@@ -71,7 +72,7 @@
                     "name": "云之国",
                     "symbolSize": 2.6666666666666665,
                     "x": -379.30386,
-                    "y": 429.06424,
+                    "y": 229.06424,
                     "value": 5,
                     "category": 5
                 },
@@ -80,7 +81,7 @@
                     "name": "遗落之国",
                     "symbolSize": 2.6666666666666665,
                     "x": -379.30386,
-                    "y": 429.06424,
+                    "y": 329.06424,
                     "value": 6,
                     "category": 6
                 },
@@ -125,7 +126,7 @@
                     "name": "被夺之国",
                     "symbolSize": 2.6666666666666665,
                     "x": -320.384,
-                    "y": 387.17325,
+                    "y": 287.17325,
                     "value": 11,
                     "category": 8
                 },
@@ -143,7 +144,25 @@
                     "name": "月之国",
                     "symbolSize": 2.6666666666666665,
                     "x": -344.39832,
-                    "y": 451.16772,
+                    "y": 151.16772,
+                    "value": 13,
+                    "category": 9
+                },
+                {
+                    "id": "14",
+                    "name": "月之国 后面",
+                    "symbolSize": 2.6666666666666665,
+                    "x": -344.39832,
+                    "y": 151.16772,
+                    "value": 13,
+                    "category": 9
+                },
+                {
+                    "id": "15",
+                    "name": "月之国 更后面",
+                    "symbolSize": 2.6666666666666665,
+                    "x": -344.39832,
+                    "y": 151.16772,
                     "value": 13,
                     "category": 9
                 }
@@ -195,20 +214,40 @@
 
         graph.nodes.forEach(function (node) {
             node.symbolSize = 30;
-            graph.categories.push({name: node.name});
+            graph.categories.push({ name: node.name });
         });
 
         var option = {
             title: {
                 text: 'Odyssey',
-                subtext: 'Default layout',
-                top: 'bottom',
-                left: 'right'
+                subtext: 'Designed by Wond-Z',
+                bottom: 50,
+                left: 'center'
+            },
+            grid: {
+                top: 0,
+                left: 'center',
+                bottom: '57%'
             },
             tooltip: {},
+            toolbox: {
+                show: true,
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    dataView: { readOnly: false },
+                    magicType: { type: ['line', 'bar'] },
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
             legend: [
                 {
+                    left: 'center',
+                    top: 50,
                     // selectedMode: 'single',
+                    itemHeight: 20,
                     data: graph.categories.map(function (a) {
                         return a.name;
                     })
@@ -229,7 +268,7 @@
                         // color: '#fff'
                     },
                     force: {
-                        repulsion: 50
+                        repulsion: 60,
                     },
                     edgeSymbol: ['none', 'arrow'],
                     edgeSymbolSize: [10, 10],
